@@ -10,6 +10,4 @@ alias grep='egrep'
 
 alias cats='tail -v -n +1'
 
-alias cats='tail -v -n +1'
-
 shopt -s autocd cdspell dirspell extglob globstar # failglob nocaseglob
