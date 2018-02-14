@@ -4,26 +4,39 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(setq-default c-default-style "k&r"
-              c-basic-offset 4
-              indent-tabs-mode nil
-              tab-width 4)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      inhibit-startup-screen t
-      scroll-step 1)
+(setq-default c-default-style "k&r")
+(setq-default c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq inhibit-startup-screen t)
+(setq scroll-step 1)
+(setq dabbrev-case-fold-search nil)
+
 (show-paren-mode 1)
 (column-number-mode 1)
 (global-linum-mode 1)
 (delete-selection-mode 1)
-(global-set-key (kbd "<M-down>") 'scroll-up-line)
-(global-set-key (kbd "<M-up>") 'scroll-down-line)
-;; (set-face-attribute 'linum nil :background "#fff")
+(xterm-mouse-mode)
+;; (global-set-key (kbd "<M-down>") 'scroll-up-line)
+;; (global-set-key (kbd "<M-up>") 'scroll-down-line)
+(global-set-key (kbd "<M-down>") (lambda () (interactive) (scroll-up-line 2)))
+(global-set-key (kbd "<M-up>") (lambda () (interactive) (scroll-down-line 2)))
+;; (set-face-attribute 'linum nil :background "#999")
 ;; (set-face-attribute 'linum nil :foreground "#000")
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
 (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
                                         comment-end   "")))
+(add-hook 'asm-mode-hook (lambda () (setq indent-tabs-mode t
+                                          tab-width 8)))
+(add-hook 'text-mode-hook (lambda () (setq indent-tabs-mode t
+                                           tab-width 8)))
+
+(setq auto-mode-alist (append '(("\\.ibcm$" . asm-mode))
+                              auto-mode-alist))
 
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
@@ -46,6 +59,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum ((t (:background "white" :foreground "black"))))
- '(yascroll:thumb-fringe ((t (:background "white" :foreground "white"))))
- '(yascroll:thumb-text-area ((t (:background "white")))))
+ '(linum ((t (:background "#999" :foreground "#000")))))

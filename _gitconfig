@@ -1,0 +1,7 @@
+[user]
+	name = Ryan Mccampbell
+	email = rmccampbell7@gmail.com
+[push]
+	default = simple
+[core]
+	editor = emacs
