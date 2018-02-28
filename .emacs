@@ -19,10 +19,10 @@
 (global-linum-mode 1)
 (delete-selection-mode 1)
 (xterm-mouse-mode)
-;; (global-set-key (kbd "<M-down>") 'scroll-up-line)
-;; (global-set-key (kbd "<M-up>") 'scroll-down-line)
-(global-set-key (kbd "<M-down>") (lambda () (interactive) (scroll-up-line 2)))
-(global-set-key (kbd "<M-up>") (lambda () (interactive) (scroll-down-line 2)))
+(global-set-key (kbd "<M-down>") 'scroll-up-line)
+(global-set-key (kbd "<M-up>") 'scroll-down-line)
+;; (global-set-key (kbd "<M-down>") (lambda () (interactive) (scroll-up-line 2)))
+;; (global-set-key (kbd "<M-up>") (lambda () (interactive) (scroll-down-line 2)))
 ;; (set-face-attribute 'linum nil :background "#999")
 ;; (set-face-attribute 'linum nil :foreground "#000")
 (put 'upcase-region 'disabled nil)
@@ -34,6 +34,7 @@
                                           tab-width 8)))
 (add-hook 'text-mode-hook (lambda () (setq indent-tabs-mode t
                                            tab-width 8)))
+(add-hook 'nxml-mode-hook (lambda() (setq indent-tabs-mode nil)))
 
 (setq auto-mode-alist (append '(("\\.ibcm$" . asm-mode))
                               auto-mode-alist))
