@@ -38,23 +38,24 @@
 (setq auto-mode-alist (append '(("\\.ibcm$" . asm-mode))
                               auto-mode-alist))
 
-(global-undo-tree-mode 1)
-(global-set-key (kbd "C-M-_") 'undo-tree-redo)
-(require 'cl)                           ; required for yascroll
-(global-yascroll-bar-mode 1)
-(require 'dired-x)
+;; Third-party
+;; (global-undo-tree-mode 1)
+;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
+;; (require 'cl)                           ; required for yascroll
+;; (global-yascroll-bar-mode 1)
 
+;; Customize
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(dtrt-indent-mode t nil (dtrt-indent))
+ ;; '(dtrt-indent-mode t nil (dtrt-indent))
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/"))))
- '(package-selected-packages (quote (yascroll sml-modeline dtrt-indent undo-tree))))
+ '(package-selected-packages (quote (yascroll dtrt-indent undo-tree))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
