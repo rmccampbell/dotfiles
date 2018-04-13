@@ -4,6 +4,8 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(add-to-list 'load-path "~/.emacs.d/packages")
+
 (setq-default c-default-style "k&r")
 (setq-default c-basic-offset 4)
 (setq-default indent-tabs-mode nil)
@@ -15,8 +17,8 @@
 (setq dabbrev-case-fold-search nil)
 
 (show-paren-mode 1)
-(column-number-mode 1)
 (global-linum-mode 1)
+(column-number-mode 1)
 (delete-selection-mode 1)
 (xterm-mouse-mode)
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
