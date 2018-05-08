@@ -10,8 +10,9 @@ alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
 
-alias grep='grep -E --color=auto'
-alias sed='sed -r'
+# alias grep='grep -E --color=auto'
+# alias sed='sed -r'
+alias esed='sed -r'
 alias less='less -R'
 
 alias cats='tail -v -n +1'
