@@ -1,13 +1,18 @@
 #-*- mode: sh -*-
 
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
 export EDITOR='emacs'
 
 alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
 
-alias grep='egrep'
-
-alias cats='tail -v -n +1'
+# alias grep='grep -E --color=auto'
+# alias sed='sed -r'
+alias esed='sed -r'
+alias less='less -R'
 
 shopt -s autocd cdspell dirspell extglob globstar # failglob nocaseglob

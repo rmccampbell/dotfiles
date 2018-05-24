@@ -2,8 +2,13 @@
 "\e[A": history-search-backward
 # arrow down
 "\e[B": history-search-forward
+
 # cycle through completions
 "\e[Z": menu-complete
 #"\C-i": menu-complete
 #"\e[Z": menu-complete-backward
+
 #set completion-ignore-case on
+
+# don't modify history lines
+set revert-all-at-newline on
