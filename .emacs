@@ -20,6 +20,7 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 (delete-selection-mode 1)
+(savehist-mode 1)
 (xterm-mouse-mode)
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
@@ -30,16 +31,16 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+;; Hooks
 (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
                                         comment-end   "")))
 (add-hook 'asm-mode-hook (lambda () (setq indent-tabs-mode t
                                           tab-width 8)))
 (add-hook 'text-mode-hook (lambda () (setq indent-tabs-mode t
                                            tab-width 8)))
-(add-hook 'nxml-mode-hook (lambda() (setq indent-tabs-mode nil)))
+(add-hook 'nxml-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
-(setq auto-mode-alist (append '(("\\.ibcm$" . asm-mode))
-                              auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.ibcm$" . asm-mode))
 
 ;; Third-party
 ;; (global-undo-tree-mode 1)
