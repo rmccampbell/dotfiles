@@ -45,6 +45,7 @@
 ;; Third-party
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
+;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
 ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
 
