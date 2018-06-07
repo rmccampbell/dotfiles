@@ -21,7 +21,7 @@
 (column-number-mode 1)
 (delete-selection-mode 1)
 (savehist-mode 1)
-(xterm-mouse-mode)
+(xterm-mouse-mode 1)
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
 ;; (global-set-key (kbd "<M-down>") (lambda () (interactive) (scroll-up-line 2)))
