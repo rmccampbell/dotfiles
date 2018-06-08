@@ -15,4 +15,8 @@ alias mv='mv -i'
 alias esed='sed -r'
 alias less='less -R'
 
+alias open='xdg-open'
+alias diffs='diff -s'
+alias ipy='ipython3'
+
 shopt -s autocd cdspell dirspell extglob globstar # failglob nocaseglob
