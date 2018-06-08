@@ -13,6 +13,15 @@ alias mv='mv -i'
 # alias grep='grep -E --color=auto'
 # alias sed='sed -r'
 alias esed='sed -r'
-alias less='less -R'
+
+export LESS='-R -i'
+alias cless='LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s" less'
+# alias cless='LESSOPEN="| pygmentize -g %s" less'
+alias lless='LESSOPEN="| ls -alF --color %s" less'
+
+alias cats='tail -v -n +1'
+alias table="column -s $'\\t' -t -n"
 
 shopt -s autocd cdspell dirspell extglob globstar # failglob nocaseglob
+
+stty -ixon
