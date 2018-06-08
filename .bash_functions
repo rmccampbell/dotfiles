@@ -26,6 +26,11 @@ whichcd ()
     cd "$(dirname "$(which "${1?}")")"
 }
 
+whichreal ()
+{
+    realpath "$(which "${1?}")"
+}
+
 lesshelp ()
 {
     if type "${1?}" > /dev/null; then
