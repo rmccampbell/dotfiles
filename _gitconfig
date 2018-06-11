@@ -5,3 +5,10 @@
 	default = simple
 [core]
 	editor = emacs
+[alias]
+	c = commit
+	ca = commit --all
+	st = status
+	ch = checkout
+	co = checkout
+	lg = log --oneline --graph
