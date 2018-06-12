@@ -24,6 +24,7 @@ alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 
 alias open='xdg-open'
+alias start='xdg-open'
 alias diffs='diff -s'
 alias ipy='ipython3'
 
