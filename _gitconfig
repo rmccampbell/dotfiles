@@ -8,7 +8,10 @@
 [alias]
 	c = commit
 	ca = commit --all
+    cam = commit --all --message
 	st = status
 	ch = checkout
 	co = checkout
 	lg = log --oneline --graph
+    ls = ls-files
+    unstach = stash pop
