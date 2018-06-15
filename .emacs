@@ -42,6 +42,20 @@
 
 (add-to-list 'auto-mode-alist '("\\.ibcm$" . asm-mode))
 
+;; Functions
+(defun copy-to-clipboard ()
+  (interactive)
+  (if (region-active-p)
+      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+    (message "No text selected")))
+
+(defun paste-from-clipboard ()
+  (interactive)
+  (insert (shell-command-to-string "xsel -o -b")))
+
+(global-set-key (kbd "C-M-c") 'copy-to-clipboard)
+(global-set-key (kbd "C-M-c") 'paste-from-clipboard)
+
 ;; Third-party
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)

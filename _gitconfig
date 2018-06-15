@@ -8,6 +8,7 @@
 [alias]
 	c = commit
 	ca = commit --all
+	cam = commit --all --message
 	st = status
 	ch = checkout
 	co = checkout
