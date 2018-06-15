@@ -27,6 +27,7 @@ alias open='xdg-open'
 alias start='xdg-open'
 alias diffs='diff -s'
 alias ipy='ipython3'
+alias up='cd ..'
 
 shopt -s autocd cdspell cdable_vars dirspell \
       extglob globstar # failglob nocaseglob
