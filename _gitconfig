@@ -13,3 +13,5 @@
 	ch = checkout
 	co = checkout
 	lg = log --oneline --graph
+	ls = ls-files
+	unstash = stash pop
