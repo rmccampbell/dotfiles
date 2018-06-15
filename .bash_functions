@@ -140,8 +140,9 @@ nl () {
     echo
 }
 
+# Use to visualize dircolors -p
 showcolors () {
-    sed 's/[0-9]{2}(;[0-9]{2})*/\x1b[\0m\0\x1b[0m/g';
+    sed -r 's/\b[0-9]{1,2}(;[0-9]{1,2})*\b/\x1b[\0m\0\x1b[0m/g'
 }
 
 typewrite () {
