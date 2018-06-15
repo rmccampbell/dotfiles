@@ -22,12 +22,13 @@ alias lless='LESSOPEN="| ls -alF --color %s" less'
 
 alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
+alias diffs='diff -s'
+alias up='cd ..'
 
 alias open='xdg-open'
 alias start='xdg-open'
-alias diffs='diff -s'
+
 alias ipy='ipython3'
-alias up='cd ..'
 
 shopt -s autocd cdspell cdable_vars dirspell \
       extglob globstar # failglob nocaseglob
