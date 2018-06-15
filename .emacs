@@ -22,14 +22,24 @@
 (delete-selection-mode 1)
 (savehist-mode 1)
 (xterm-mouse-mode 1)
+
+(defmacro bind-args (fun &rest args)
+  `(lambda () (interactive) (,fun ,@args)))
+
+;; Bindings
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
-;; (global-set-key (kbd "<M-down>") (lambda () (interactive) (scroll-up-line 2)))
-;; (global-set-key (kbd "<M-up>") (lambda () (interactive) (scroll-down-line 2)))
+;; (global-set-key (kbd "<M-down>") (bind-args scroll-up-line 2))
+;; (global-set-key (kbd "<M-up>") (bind-args scroll-down-line 2))
+(global-set-key (kbd "<mouse-5>") (bind-args scroll-up-line 2))
+(global-set-key (kbd "<mouse-4>") (bind-args scroll-down-line 2))
 ;; (set-face-attribute 'linum nil :background "#999")
 ;; (set-face-attribute 'linum nil :foreground "#000")
+
+;; Enabled
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
 
 ;; Hooks
 (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
@@ -46,7 +56,8 @@
 (defun copy-to-clipboard ()
   (interactive)
   (if (region-active-p)
-      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+      (shell-command-on-region
+       (region-beginning) (region-end) "xsel -i -b")
     (message "No text selected")))
 
 (defun paste-from-clipboard ()
