@@ -8,6 +8,7 @@
 [alias]
 	c = commit
 	ca = commit --all
+	cm = commit --message
 	cam = commit --all --message
 	st = status
 	ch = checkout
@@ -15,3 +16,4 @@
 	lg = log --oneline --graph
 	ls = ls-files
 	unstash = stash pop
+	amend = commit --amend
