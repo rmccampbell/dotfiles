@@ -65,7 +65,7 @@
   (insert (shell-command-to-string "xsel -o -b")))
 
 (global-set-key (kbd "C-M-c") 'copy-to-clipboard)
-(global-set-key (kbd "C-M-c") 'paste-from-clipboard)
+(global-set-key (kbd "C-M-v") 'paste-from-clipboard)
 
 ;; Third-party
 ;; (global-undo-tree-mode 1)
