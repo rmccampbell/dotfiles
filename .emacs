@@ -4,6 +4,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+;; Config
 (add-to-list 'load-path "~/.emacs.d/packages")
 
 (setq-default c-default-style "k&r")
@@ -23,10 +24,10 @@
 (savehist-mode 1)
 (xterm-mouse-mode 1)
 
+;; Bindings
 (defmacro bind-args (fun &rest args)
   `(lambda () (interactive) (,fun ,@args)))
 
-;; Bindings
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
 ;; (global-set-key (kbd "<M-down>") (bind-args scroll-up-line 2))
