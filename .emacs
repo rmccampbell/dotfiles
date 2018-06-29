@@ -24,6 +24,9 @@
 (savehist-mode 1)
 (xterm-mouse-mode 1)
 
+;; (set-face-attribute 'linum nil :background "#999")
+;; (set-face-attribute 'linum nil :foreground "#000")
+
 ;; Bindings
 (defmacro bind-args (fun &rest args)
   `(lambda () (interactive) (,fun ,@args)))
@@ -34,8 +37,6 @@
 ;; (global-set-key (kbd "<M-up>") (bind-args scroll-down-line 2))
 (global-set-key (kbd "<mouse-5>") (bind-args scroll-up-line 2))
 (global-set-key (kbd "<mouse-4>") (bind-args scroll-down-line 2))
-;; (set-face-attribute 'linum nil :background "#999")
-;; (set-face-attribute 'linum nil :foreground "#000")
 
 ;; Enabled
 (put 'upcase-region 'disabled nil)
@@ -57,8 +58,7 @@
 (defun copy-to-clipboard ()
   (interactive)
   (if (region-active-p)
-      (shell-command-on-region
-       (region-beginning) (region-end) "xsel -i -b")
+      (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
     (message "No text selected")))
 
 (defun paste-from-clipboard ()
@@ -74,6 +74,7 @@
 ;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
 ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
+(require 'dired-x)
 
 ;; Customize
 (custom-set-variables
