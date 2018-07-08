@@ -24,8 +24,10 @@
 (savehist-mode 1)
 (xterm-mouse-mode 1)
 
-;; (set-face-attribute 'linum nil :background "#999")
-;; (set-face-attribute 'linum nil :foreground "#000")
+(require 'dired-x)
+
+;; (set-face-background 'linum "#999")
+;; (set-face-foreground 'linum "#000")
 
 ;; Bindings
 (defmacro bind-args (fun &rest args)
@@ -75,7 +77,7 @@
 ;; (dtrt-indent-mode 1)
 ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
-(require 'dired-x)
+;; (hlinum-activate)
 
 ;; Customize
 (custom-set-variables
