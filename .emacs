@@ -7,15 +7,16 @@
 ;; Config
 (add-to-list 'load-path "~/.emacs.d/packages")
 
-(setq-default c-default-style "k&r")
-(setq-default c-basic-offset 4)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq inhibit-startup-screen t)
 (setq scroll-step 1)
 (setq dabbrev-case-fold-search nil)
+(setq fill-column 80)
+(setq c-default-style "bsd")
+(setq c-basic-offset 4)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 (show-paren-mode 1)
 (global-linum-mode 1)
@@ -23,6 +24,8 @@
 (delete-selection-mode 1)
 (savehist-mode 1)
 (xterm-mouse-mode 1)
+(unless (display-graphic-p)
+  (menu-bar-mode -1))
 
 (require 'dired-x)
 
@@ -71,6 +74,7 @@
 (global-set-key (kbd "C-M-v") 'paste-from-clipboard)
 
 ;; Third-party
+;; (require 'undo-tree)
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
 ;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
@@ -89,7 +93,7 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/"))))
- '(package-selected-packages (quote (yascroll dtrt-indent undo-tree))))
+ '(package-selected-packages (quote (hlinum yascroll dtrt-indent undo-tree))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
