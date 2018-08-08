@@ -82,6 +82,8 @@
 ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
 ;; (hlinum-activate)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)
 
 ;; Customize
 (custom-set-variables

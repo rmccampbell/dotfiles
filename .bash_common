@@ -24,6 +24,8 @@ alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
 alias up='cd ..'
+alias c='clear'
+ldiff () { diff "$@" | less; }
 
 alias open='xdg-open'
 alias start='xdg-open'
