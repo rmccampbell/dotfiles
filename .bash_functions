@@ -185,3 +185,8 @@ add_to_path () {
 #         fi
 #     fi
 # }
+
+# https://unix.stackexchange.com/questions/388519/bash-wait-for-process-in-process-substitution-even-if-command-is-invalid
+waitbg () {
+    { { eval "$@"; } 3>&1 >&4 4>&- | cat; } 4>&1;
+}
