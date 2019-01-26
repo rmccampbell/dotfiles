@@ -1,11 +1,12 @@
 [user]
-	name = Ryan Mccampbell
+	name = Ryan McCampbell
 	email = rmccampbell7@gmail.com
 [push]
 	default = simple
 [core]
 	editor = emacs
 [alias]
+	aliases = config --get-regexp ^alias\\.
 	c = commit
 	ca = commit --all
 	cm = commit --message
@@ -17,3 +18,4 @@
 	ls = ls-files
 	unstash = stash pop
 	amend = commit --amend
+	superclean = clean -xd
