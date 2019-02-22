@@ -190,3 +190,8 @@ add_to_path () {
 waitbg () {
     { { eval "$@"; } 3>&1 >&4 4>&- | cat; } 4>&1;
 }
+
+setdisplay() {
+    export DISPLAY=':0.0';
+    # export DISPLAY='localhost:0.0';
+}

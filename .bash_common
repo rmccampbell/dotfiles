@@ -32,6 +32,10 @@ alias start='xdg-open'
 
 alias ipy='ipython3'
 
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add -A'
+
 shopt -s autocd cdspell cdable_vars dirspell \
       extglob globstar # failglob nocaseglob
 
