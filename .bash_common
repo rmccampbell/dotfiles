@@ -1,9 +1,5 @@
 #-*- mode: sh -*-
 
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
-fi
-
 export VISUAL='emacs'
 export EDITOR="$VISUAL"
 
