@@ -1,5 +1,36 @@
 #-*- mode: sh -*-
 
+alias rm='rm -I'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# alias grep='grep -E --color=auto'
+# alias sed='sed -r'
+alias esed='sed -r'
+
+export LESS='-R -i'
+alias cless='LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s" less'
+# alias cless='LESSOPEN="| pygmentize -g %s" less'
+alias lless='LESSOPEN="| ls -alF --color %s" less'
+
+alias cats='tail -v -n +1'
+alias table="column -s $'\\t' -t -n"
+alias diffs='diff -s'
+alias up='cd ..'
+alias c='clear'
+ldiff () { diff "$@" | less; }
+
+alias open='xdg-open'
+alias start='xdg-open'
+
+alias py='python3'
+alias ipy='ipython3'
+
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add -A'
+
+
 whichdo () {
     local path="$(which "${2?}")"
     "$1" "${path:?}" "${@:3}"
@@ -188,10 +219,10 @@ add_to_path () {
 
 # https://unix.stackexchange.com/questions/388519/bash-wait-for-process-in-process-substitution-even-if-command-is-invalid
 waitbg () {
-    { { eval "$@"; } 3>&1 >&4 4>&- | cat; } 4>&1;
+    { { eval "$@"; } 3>&1 >&4 4>&- | cat; } 4>&1
 }
 
 setdisplay() {
-    export DISPLAY=':0.0';
-    # export DISPLAY='localhost:0.0';
+    export DISPLAY=':0.0'
+    # export DISPLAY='localhost:0.0'
 }
