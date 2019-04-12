@@ -31,7 +31,7 @@ whichreal () {
 }
 
 whichlib () {
-    ldconfig -p | grep --color=never -F "$1";
+    ldconfig -p | grep --color=never -F "$@";
 }
 
 lesshelp () {
