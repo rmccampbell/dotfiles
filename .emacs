@@ -38,6 +38,8 @@
 
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
+(global-set-key (kbd "M-n") 'scroll-up-line)
+(global-set-key (kbd "M-p") 'scroll-down-line)
 ;; (global-set-key (kbd "<M-down>") (bind-args scroll-up-line 2))
 ;; (global-set-key (kbd "<M-up>") (bind-args scroll-down-line 2))
 (global-set-key (kbd "<mouse-5>") (bind-args scroll-up-line 2))
