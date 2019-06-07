@@ -76,7 +76,6 @@
 (global-set-key (kbd "C-M-v") 'paste-from-clipboard)
 
 ;; Third-party
-;; (require 'undo-tree)
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
 ;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
