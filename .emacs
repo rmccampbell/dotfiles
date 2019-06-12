@@ -7,7 +7,7 @@
 ;; Config
 (add-to-list 'load-path "~/.emacs.d/packages")
 
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(add-to-list 'backup-directory-alist '("." . "~/.emacs.d/backups") t)
 (setq inhibit-startup-screen t)
 (setq scroll-step 1)
 (setq dabbrev-case-fold-search nil)
@@ -79,7 +79,7 @@
 ;; (global-undo-tree-mode 1)
 ;; (global-set-key (kbd "C-M-_") 'undo-tree-redo)
 ;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
-;; (dtrt-indent-mode 1)
+;; (dtrt-indent-global-mode 1)
 ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
 ;; (hlinum-activate)
