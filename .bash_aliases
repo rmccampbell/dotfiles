@@ -30,6 +30,13 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add -A'
 
+p () {
+    if [ $# -eq 0 ]; then
+        less
+    else
+        "$@" |& less
+    fi
+}
 
 whichdo () {
     local path="$(which "${2?}")"
@@ -53,24 +60,31 @@ whichll () {
     ls -l "$(which "${1?}")"
 }
 
-whichcd () {
-    cd "$(dirname "$(which "${1?}")")"
-}
-
 whichreal () {
     realpath "$(which "${1?}")"
+}
+
+whichcd () {
+    cd "$(dirname "$(which "${1?}")")"
 }
 
 whichlib () {
     ldconfig -p | grep --color=never -F "$@";
 }
 
+alias wcat=whichcat
+alias wless=whichless
+alias wfile=whichfile
+alias wll=whichll
+alias wreal=whichreal
+alias wcd=whichcd
+
 lesshelp () {
     if type "${1?}" > /dev/null; then
-        if [ $(type -t "$1") = "builtin" ]; then
+        if [[ $(type -t "$1") =~ ^(builtin|keyword)$ ]]; then
             help "$@" |& less
         else
-            "$@" --help |& less
+            { "$@" --help || "$@" -help || "$@" -h; } |& less
         fi
     fi
 }
@@ -103,7 +117,7 @@ bool () {
 }
 
 ret () {
-    return "${@}"
+    return "$@"
 }
 
 rand () {
@@ -188,34 +202,34 @@ cds () {
     cd "$*"
 }
 
-add_to_path () {
-    if [ "$1" = "-a" ]; then
-        shift
-        local append=true
-    fi
-    if [[ ! "$PATH" =~ (^|:)${1}($|:) ]]; then
-        if [ "$append" = true ]; then
-            PATH="$PATH:$1"
-        else
-            PATH="$1:$PATH"
-        fi
-    fi
-}
-
 # add_to_path () {
 #     if [[ "$1" = "-a" ]]; then
 #         shift
 #         local append=true
 #     fi
-#     local pathvar="${2:-PATH}"
-#     if [[ ! "${!pathvar}" =~ (^|:)${1}($|:) ]]; then
-#         if [[ "$append" = true ]]; then
-#             declare "$pathvar"="${!pathvar}:$1"
+#     if [[ ! "$PATH" =~ (^|:)${1}($|:) ]]; then
+#         if [ "$append" = true ]; then
+#             PATH="$PATH:$1"
 #         else
-#             declare "$pathvar"="$1:${!pathvar}"
+#             PATH="$1:$PATH"
 #         fi
 #     fi
 # }
+
+add_to_path () {
+    if [[ "$1" = "-a" ]]; then
+        shift
+        local append=true
+    fi
+    local pathvar="${2:-PATH}"
+    if [[ ! "${!pathvar}" =~ (^|:)${1}($|:) ]]; then
+        if [[ "$append" = true ]]; then
+            declare -g "$pathvar"="${!pathvar}:$1"
+        else
+            declare -g "$pathvar"="$1:${!pathvar}"
+        fi
+    fi
+}
 
 # https://unix.stackexchange.com/questions/388519/bash-wait-for-process-in-process-substitution-even-if-command-is-invalid
 waitbg () {
