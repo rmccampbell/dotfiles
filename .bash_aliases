@@ -248,6 +248,14 @@ waitbg () {
 }
 
 setdisplay() {
-    export DISPLAY=':0.0'
-    # export DISPLAY='localhost:0.0'
+    # export DISPLAY=':0.0'
+    export DISPLAY='localhost:0.0'
+}
+
+showtoiletfonts ()
+{
+    for i in ${TOILET_FONT_PATH:=/usr/share/figlet}/*.{t,f}lf; do
+        j=${i##*/};
+        toilet -d "${i%/*}" -f "$j" "${j%.*}" "$@";
+    done
 }
