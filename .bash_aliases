@@ -1,5 +1,10 @@
 #-*- mode: sh -*-
 
+alias sudo='sudo '
+
+alias lld='ls -ldF'
+alias lsd='ls -d'
+
 alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -52,6 +57,11 @@ whichless () {
     less "${path:?}"
 }
 
+whichedit () {
+    local path="$(which "${1?}")"
+    $VISUAL "${path:?}"
+}
+
 whichfile () {
     file "$(which "${1?}")"
 }
@@ -74,6 +84,7 @@ whichlib () {
 
 alias wcat=whichcat
 alias wless=whichless
+alias wedit=whichedit
 alias wfile=whichfile
 alias wll=whichll
 alias wreal=whichreal
