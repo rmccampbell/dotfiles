@@ -1,5 +1,7 @@
 #-*- mode: sh -*-
 
+alias sudo='sudo '
+
 alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
