@@ -20,8 +20,10 @@ alias up='cd ..'
 alias c='clear'
 ldiff () { diff "$@" | less; }
 
-alias open='xdg-open'
-alias start='xdg-open'
+if type xdg-open &> /dev/null; then
+    alias open='xdg-open'
+    alias start='xdg-open'
+fi
 
 alias py='python3'
 alias ipy='ipython3'
