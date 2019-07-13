@@ -76,7 +76,7 @@ whichheader () {
     if [ "$1" = "-f" ]; then
         echo "#include <${2:?}>" | cpp -H -x c++ -o /dev/null 2>&1
     else
-        echo "#include <${1:?}>" | cpp -H -x c++ -o /dev/null 2>&1 | head -n 1 | cut -c 3-
+        echo "#include <${1:?}>" | cpp -H -x c++ -o /dev/null 2>&1 | head -n 1 | sed 's/\.* //'
     fi
 }
 
