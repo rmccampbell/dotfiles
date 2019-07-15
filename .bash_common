@@ -6,6 +6,7 @@ export EDITOR="$VISUAL"
 shopt -s autocd cdspell cdable_vars dirspell \
       extglob globstar lastpipe # failglob nocaseglob dotglob
 GLOBIGNORE='.:..'
+# Setting GLOBIGNORE implicitly sets dotglob; unset
 shopt -u dotglob
 
 stty -ixon
