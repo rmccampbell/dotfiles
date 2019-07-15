@@ -25,8 +25,10 @@ alias up='cd ..'
 alias c='clear'
 ldiff () { diff "$@" | less; }
 
-alias open='xdg-open'
-alias start='xdg-open'
+if type xdg-open &> /dev/null; then
+    alias open='xdg-open'
+    alias start='xdg-open'
+fi
 
 alias py='python3'
 alias ipy='ipython3'
@@ -80,6 +82,14 @@ whichcd () {
 
 whichlib () {
     ldconfig -p | grep --color=never -F "$@";
+}
+
+whichheader () {
+    if [ "$1" = "-f" ]; then
+        echo "#include <${2:?}>" | cpp -H -x c++ -o /dev/null 2>&1
+    else
+        echo "#include <${1:?}>" | cpp -H -x c++ -o /dev/null 2>&1 | head -n 1 | sed 's/\.* //'
+    fi
 }
 
 alias wcat=whichcat
@@ -254,8 +264,10 @@ setdisplay() {
 
 showtoiletfonts ()
 {
-    for i in ${TOILET_FONT_PATH:=/usr/share/figlet}/*.{t,f}lf; do
-        j=${i##*/};
-        toilet -d "${i%/*}" -f "$j" "${j%.*}" "$@";
+    for i in "${TOILET_FONT_PATH:=/usr/share/figlet}"/*.{t,f}lf; do
+        j=${i##*/}
+        j=${j%.*}
+        echo "$j:"
+        toilet -d "${i%/*}" -f "$j" "$j" "$@"
     done
 }
