@@ -7,11 +7,16 @@
 	editor = emacs
 [alias]
 	aliases = config --get-regexp ^alias\\.
+	a = add --all
 	c = commit
 	ca = commit --all
+	caa = !git add --all && git commit
 	cm = commit --message
 	cam = commit --all --message
+	caam = !git add --all && git commit --message
 	st = status
+	d = diff
+	ds = diff --cached
 	ch = checkout
 	co = checkout
 	lg = log --oneline --graph
