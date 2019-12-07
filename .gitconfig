@@ -17,6 +17,7 @@
 	st = status
 	d = diff
 	ds = diff --cached
+    shows = show --stat
 	ch = checkout
 	co = checkout
 	lg = log --oneline --graph
