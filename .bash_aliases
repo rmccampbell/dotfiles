@@ -33,8 +33,10 @@ fi
 alias py='python3'
 alias ipy='ipython3'
 
+alias gitp='git --no-pager'
 alias gs='git status'
 alias gd='git diff'
+alias gds='git diff --cached'
 alias ga='git add -A'
 
 p () {
