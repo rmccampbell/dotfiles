@@ -23,5 +23,5 @@
 	lg = log --oneline --graph
 	ls = ls-files
 	unstash = stash pop
-	amend = commit --amend
+	amend = commit --amend --no-edit
 	superclean = clean -xd
