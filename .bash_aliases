@@ -15,7 +15,7 @@ alias esed='sed -r'
 
 export LESS='-R -i'
 alias cless='LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s" less'
-# alias cless='LESSOPEN="| pygmentize -g %s" less'
+alias pless='LESSOPEN="| pygmentize -g %s" less'
 alias lless='LESSOPEN="| ls -alF --color %s" less'
 
 alias cats='tail -v -n +1'
