@@ -10,8 +10,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # alias grep='grep -E --color=auto'
-# alias sed='sed -r'
-alias esed='sed -r'
+# alias sed='sed -E'
+alias esed='sed -E'
 
 export LESS='-R -i'
 alias cless='LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s" less'
@@ -22,7 +22,8 @@ alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
 alias up='cd ..'
-alias c='clear'
+alias c=cd
+alias cls='clear'
 ldiff () { diff "$@" | less; }
 
 if type xdg-open &> /dev/null; then
