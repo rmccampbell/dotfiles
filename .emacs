@@ -94,8 +94,8 @@
  ;; If there is more than one, they won't work right.
  '(package-archives
    (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
+    (("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages (quote (hlinum yascroll dtrt-indent undo-tree))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
