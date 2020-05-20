@@ -38,6 +38,8 @@ alias gitp='git --no-pager'
 alias gs='git status'
 alias gd='git diff'
 alias gds='git diff --cached'
+alias gdw='git diff --word-diff-regex=.'
+alias gdws='git diff --cached --word-diff-regex=.'
 alias ga='git add -A'
 
 p () {
