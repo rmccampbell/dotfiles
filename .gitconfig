@@ -17,7 +17,9 @@
 	st = status
 	d = diff
 	ds = diff --cached
-    shows = show --stat
+	dw = diff --word-diff-regex=.
+	dws = diff --cached --word-diff-regex=.
+	shows = show --stat
 	ch = checkout
 	co = checkout
 	lg = log --oneline --graph
