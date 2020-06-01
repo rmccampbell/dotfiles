@@ -274,3 +274,8 @@ showtoiletfonts ()
         toilet -d "${i%/*}" -f "$j" "$j" "$@"
     done
 }
+
+peek ()
+{
+    tee /dev/tty
+}
