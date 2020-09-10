@@ -97,6 +97,10 @@ whichheader () {
     fi
 }
 
+whichhost () {
+    ssh -G "${1?}" | sed -n 's/^hostname //p'
+}
+
 alias wcat=whichcat
 alias wless=whichless
 alias wedit=whichedit
@@ -267,8 +271,7 @@ setdisplay() {
     export DISPLAY='localhost:0.0'
 }
 
-showtoiletfonts ()
-{
+showtoiletfonts () {
     for i in "${TOILET_FONT_PATH:=/usr/share/figlet}"/*.{t,f}lf; do
         j=${i##*/}
         j=${j%.*}
@@ -277,7 +280,6 @@ showtoiletfonts ()
     done
 }
 
-peek ()
-{
+peek () {
     tee /dev/tty
 }
