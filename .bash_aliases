@@ -114,7 +114,8 @@ lesshelp () {
         if [[ $(type -t "$1") =~ ^(builtin|keyword)$ ]]; then
             help "$@" |& less
         else
-            { "$@" --help || "$@" -help || "$@" -h; } |& less
+            # { "$@" --help || "$@" -help || "$@" -h; } |& less
+            "$@" --help |& less
         fi
     fi
 }
