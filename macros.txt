@@ -1,0 +1,35 @@
+pdn="C:\Program Files\paint.net\PaintDotNet.exe" $*
+chrome="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" $*
+ichrome="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --incognito $*
+chromei="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --incognito $*
+vlc="C:\Program Files\VideoLAN\VLC\vlc.exe" $*
+v="C:\Users\Ryan\Documents\Python\bin\video.pyw" $*
+ydl=youtube-dl $*
+
+ipy=ipython.exe $*
+py38=py -3.8 $*
+ipy38=py -3.8 -m IPython $*
+pip38=py -3.8 -m pip $*
+
+ll=ls -AlF $*
+l=ls -CF $*
+
+gitp=git --no-pager $*
+gs=git status $*
+gd=git diff $*
+gds=git diff --cached $*
+gdw=git diff --word-diff-regex=. $*
+gdws=git diff --cached --word-diff-regex=. $*
+ga=git add -A $*
+
+wcat=whichcat.bat $*
+wcd=whichcd.bat $*
+wless=whichless.bat $*
+wedit=whichedit.bat $*
+wpy=whichpy.bat $*
+lh=lesshelp.bat $*
+
+which=where $*
+ldiff=diff $* | less
+up=cd ..
+upup=cd ..\..
