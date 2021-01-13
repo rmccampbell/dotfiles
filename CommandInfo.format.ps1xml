@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See C:\Windows\System32\WindowsPowerShell\v1.0\PowerShellCore.format.ps1xml -->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>CommandInfo</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Management.Automation.AliasInfo</TypeName>
+        <TypeName>System.Management.Automation.ApplicationInfo</TypeName>
+        <TypeName>System.Management.Automation.CmdletInfo</TypeName>
+        <TypeName>System.Management.Automation.ExternalScriptInfo</TypeName>
+        <TypeName>System.Management.Automation.FilterInfo</TypeName>
+        <TypeName>System.Management.Automation.FunctionInfo</TypeName>
+        <TypeName>System.Management.Automation.ScriptInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>CommandType</Label>
+            <Width>14</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>24</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Version</Label>
+            <Width>9</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Source</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>CommandType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  if ($_.CommandType -eq "Alias") {
+                    $_.DisplayName
+                  } else {
+                    $_.Name
+                  }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Version</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Source</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
