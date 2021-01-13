@@ -5,14 +5,14 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 Import-Module posh-git
-Import-Module oh-my-posh
 if ($env:WT_SESSION) {
+    Import-Module oh-my-posh
     Set-Theme PowerlinePlus
 }
 
 # Customize Powershell
-Update-FormatData -PrependPath C:\Users\Ryan\Documents\PowerShell\CommandInfo.format.ps1xml
-Update-FormatData -PrependPath C:\Users\Ryan\Documents\PowerShell\FileSystem.format.ps1xml
+Update-FormatData -PrependPath $HOME\Documents\PowerShell\CommandInfo.format.ps1xml
+Update-FormatData -PrependPath $HOME\Documents\PowerShell\FileSystem.format.ps1xml
 
 if ($PSVersionTable.PSEdition -eq "Desktop") {
     # https://stackoverflow.com/questions/40098771/changing-powershells-default-output-encoding-to-utf-8
@@ -29,9 +29,6 @@ New-Alias sel Select-Object
 New-Alias jobs Get-Job
 New-Alias psh powershell.exe
 New-Alias ipy ipython.exe
-New-Alias py38 "C:\Program Files\Python38\python.exe"
-New-Alias ipy38 "C:\Program Files\Python38\Scripts\ipython.exe"
-New-Alias pip38 "C:\Program Files\Python38\Scripts\pip.exe"
 New-Alias pdn "C:\Program Files\paint.net\PaintDotNet.exe"
 New-Alias vlc "C:\Program Files\VideoLAN\VLC\vlc.exe"
 New-Alias v video.pyw
