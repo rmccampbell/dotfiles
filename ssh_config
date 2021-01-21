@@ -22,11 +22,6 @@ Host gpusrv01 gpusrv02 gpusrv03 gpusrv04 gpusrv05 gpusrv06
      HostName %h.cs.virginia.edu
      User rnm6u
 
-Host aws
-     HostName ec2-34-196-207-39.compute-1.amazonaws.com
-     User ubuntu
-     IdentityFile ~/.ssh/default_key.pem
-
 Host linklab
      Hostname d-172-27-44-116.dhcp.virginia.edu
      User ryan
