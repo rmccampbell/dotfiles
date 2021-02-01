@@ -7,7 +7,8 @@ if (Test-Path($ChocolateyProfile)) {
 Import-Module posh-git
 if ($env:WT_SESSION) {
     Import-Module oh-my-posh
-    Set-Theme PowerlinePlus
+    # Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
+    Set-Theme Paradox
 }
 
 # Customize Powershell
@@ -78,7 +79,9 @@ function Cd-Variable($v) {
         if (!$?) {
             $var = Get-Item Env:$v
         }
-        Set-Location $var.Value
+        if ($var) {
+            Set-Location $var.Value
+        }
     }
 }
 New-Alias c Cd-Variable
