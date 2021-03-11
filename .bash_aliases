@@ -21,10 +21,16 @@ alias lless='LESSOPEN="| ls -alF --color %s" less'
 alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
+alias c='cd'
 alias up='cd ..'
-alias c=cd
+alias upup='cd ../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias cls='clear'
 ldiff () { diff "$@" | less; }
+
+alias iname='namei'
 
 if type xdg-open &> /dev/null; then
     alias open='xdg-open'
@@ -41,6 +47,8 @@ alias gds='git diff --cached'
 alias gdw='git diff --word-diff-regex=.'
 alias gdws='git diff --cached --word-diff-regex=.'
 alias ga='git add -A'
+
+alias tm='tmux new -A'
 
 p () {
     if [ $# -eq 0 ]; then
