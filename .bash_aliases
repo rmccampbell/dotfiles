@@ -22,6 +22,8 @@ alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
 alias c='cd'
+alias cdc='cd $PWD'
+alias cdl='cd -P'
 alias up='cd ..'
 alias upup='cd ../..'
 alias ..='cd ..'
@@ -48,6 +50,13 @@ alias gdw='git diff --word-diff-regex=.'
 alias gdws='git diff --cached --word-diff-regex=.'
 alias ga='git add -A'
 
+alias hs='hg status'
+alias hd='hg diff'
+alias ha='hg add'
+
+alias emacs='emacs -nw'
+alias wemacs='\emacs'
+
 alias tm='tmux new -A'
 
 p () {
@@ -57,6 +66,7 @@ p () {
         "$@" |& less
     fi
 }
+alias p='p '
 
 whichdo () {
     local path="$(which "${2?}")"
@@ -109,13 +119,13 @@ whichhost () {
     ssh -G "${1?}" | sed -n 's/^hostname //p'
 }
 
-alias wcat=whichcat
-alias wless=whichless
-alias wedit=whichedit
-alias wfile=whichfile
-alias wll=whichll
-alias wreal=whichreal
-alias wcd=whichcd
+alias wcat='whichcat '
+alias wless='whichless '
+alias wedit='whichedit '
+alias wfile='whichfile '
+alias wll='whichll '
+alias wreal='whichreal '
+alias wcd='whichcd '
 
 lesshelp () {
     if type "${1?}" > /dev/null; then
@@ -128,7 +138,7 @@ lesshelp () {
     fi
 }
 
-alias lh=lesshelp
+alias lh='lesshelp '
 
 slice () {
     head -n "${2?}" "${3--}" | tail -n "+${1?}"
@@ -220,7 +230,7 @@ hex () {
 }
 
 nl () {
-    "$@"
+    "${@-cat}"
     echo
 }
 
@@ -291,4 +301,12 @@ showtoiletfonts () {
 
 peek () {
     tee /dev/tty
+}
+
+headers() {
+    while IFS= read -r line; do
+        line="${line%$'\r'}"
+        [ -z "$line" ] && break
+        echo "$line"
+    done
 }
