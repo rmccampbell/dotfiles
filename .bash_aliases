@@ -50,6 +50,13 @@ alias gdw='git diff --word-diff-regex=.'
 alias gdws='git diff --cached --word-diff-regex=.'
 alias ga='git add -A'
 
+alias hs='hg status'
+alias hd='hg diff'
+alias ha='hg add'
+
+alias emacs='emacs -nw'
+alias wemacs='\emacs'
+
 alias tm='tmux new -A'
 
 p () {
