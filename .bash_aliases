@@ -2,6 +2,9 @@
 
 alias sudo='sudo '
 
+alias ll='ls -AlF'
+alias la='ls -A'
+alias l='ls -CF'
 alias lld='ls -ldF'
 alias lsd='ls -d'
 
@@ -91,6 +94,11 @@ whichreal () {
 
 whichcd () {
     cd "$(dirname "$(which "${1?}")")"
+}
+
+whichpy () {
+    local path="$(which "${1?}")"
+    python3 "${path:?}" "${@:2}"
 }
 
 whichlib () {
