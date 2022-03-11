@@ -260,33 +260,30 @@ cds () {
     cd "$*"
 }
 
-# add_to_path () {
-#     if [[ "$1" = "-a" ]]; then
-#         shift
-#         local append=true
-#     fi
-#     if [[ ! "$PATH" =~ (^|:)${1}($|:) ]]; then
-#         if [ "$append" = true ]; then
-#             PATH="$PATH:$1"
-#         else
-#             PATH="$1:$PATH"
-#         fi
-#     fi
-# }
-
+# Adds one or more variables to the PATH, or any variable specified with -v VAR
+# Prepends by default or appends with -a
 add_to_path () {
-    if [[ "$1" = "-a" ]]; then
-        shift
-        local append=true
-    fi
-    local pathvar="${2:-PATH}"
-    if [[ ! "${!pathvar}" =~ (^|:)${1}($|:) ]]; then
-        if [[ "$append" = true ]]; then
-            declare -g "$pathvar"="${!pathvar}:$1"
-        else
-            declare -g "$pathvar"="$1:${!pathvar}"
+    local OPTIND OPTARG
+    local append pathvar=PATH
+    while getopts "av:" opt; do
+        case "$opt" in
+            a) append=true;;
+            v) pathvar=${OPTARG};;
+            *) return 1;;
+        esac
+    done
+    shift $((OPTIND-1))
+    # Ensure at least one arg is passed
+    : ${1?}
+    for val in "$@"; do
+        if [[ ! "${!pathvar}" =~ (^|:)$val($|:) ]]; then
+            if [[ "$append" = true ]]; then
+                declare -g "$pathvar"="${!pathvar:+${!pathvar}:}$val"
+            else
+                declare -g "$pathvar"="$val${!pathvar:+:${!pathvar}}"
+            fi
         fi
-    fi
+    done
 }
 
 # https://unix.stackexchange.com/questions/388519/bash-wait-for-process-in-process-substitution-even-if-command-is-invalid
