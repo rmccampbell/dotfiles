@@ -1,0 +1,57 @@
+#-*- mode: sh -*-
+
+export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/python"
+export PYTHONSTARTUP="$HOME/python/startup.py"
+
+# export P4DIFF="git --no-pager diff --no-index --color"
+export P4DIFF="diff --color=always"
+
+export HEAD=/google/src/head/depot/google3
+export LOGS=/usr/local/google/tmp
+
+update_history() { history -a; }
+# set_workspace() { WS=$(p4 g4d 2>/dev/null); }
+set_workspace() {
+    export WS=${PWD/\/google3\/*/\/google3}
+    export DIR=${PWD##"$WS"?(/)}
+    export BLZBIN=$WS/blaze-bin
+    export BLZBINDIR=$BLZBIN/$DIR
+    export HEADDIR=$HEAD/$DIR
+}
+precmd_functions+=(update_history set_workspace)
+
+alias emacs='emacs -nw'
+alias wemacs='\emacs'
+
+alias pp='p4 pending'
+alias pd='p4 diff'
+alias pr='p4 reopen'
+
+alias hs='hg status'
+alias hd='hg diff'
+alias ha='hg add'
+alias hx='hg xl'
+
+alias fu=fileutil
+alias fl='fileutil ls'
+alias fls='fileutil ls'
+alias fll='fileutil ls -l'
+alias flsd='fileutil ls -d'
+alias flld='fileutil ls -ld'
+
+alias tgcert='eval $(tmux show-environment -s); gcert'
+alias tgcertstatus='eval $(tmux show-environment -s); gcertstatus'
+
+alias g3python=/google/data/ro/projects/g3python/g3python
+alias bluze=/google/bin/releases/blueprint-bluze/public/bluze 
+alias iwyu=/google/src/files/head/depot/google3/devtools/maintenance/include_what_you_use/iwyu.py
+alias buildfix=/google/data/ro/teams/ads-integrity/buildfix
+alias rmpm='rabbit --verifiable mpm -c opt --mpm_build_arg="--label=live"'
+alias aclcheck=/google/data/ro/projects/ganpati/aclcheck
+alias placercfg=/google/data/ro/teams/placer/mpms/placercfg/live/placercfg
+alias ganpaticfg=/google/bin/releases/ganpaticfg/public/ganpaticfg
+alias pastebin=/google/src/head/depot/eng/tools/pastebin
+alias guitar=/google/data/ro/projects/testing/integrate/guitar
+alias plxutil=/google/data/ro/teams/plx/plxutil
+alias get_mint=/google/data/ro/projects/gaiamint/bin/get_mint
+alias p1ui='boq run --prod_data --node=//java/com/google/privacy/one/ui/productpage/ui'
