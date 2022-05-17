@@ -32,6 +32,7 @@ alias upup='cd ../..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias -- -='cd -'
 alias cls='clear'
 ldiff () { diff "$@" | less; }
 
