@@ -34,7 +34,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias -- -='cd -'
 alias cls='clear'
-ldiff () { diff "$@" | less; }
+ldiff () { diff --color=always "$@" | less; }
 
 alias iname='namei'
 
