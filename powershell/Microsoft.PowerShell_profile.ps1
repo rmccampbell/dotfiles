@@ -6,13 +6,18 @@ if (Test-Path($ChocolateyProfile)) {
 
 Import-Module posh-git
 Import-Module posh-cargo
-if ($env:WT_SESSION) {
-    # Import-Module oh-my-posh
-    # Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
-    # Set-Theme Paradox
-    $env:POSH_GIT_ENABLED = $true
-    oh-my-posh init pwsh --config "$HOME\Documents\PowerShell\themes\paradox-custom.omp.json" | Invoke-Expression
-}
+Import-Module 'C:\vcpkg\scripts\posh-vcpkg'
+
+# if ($env:WT_SESSION -or $env:TERM_PROGRAM -eq "vscode") {
+# Import-Module oh-my-posh
+# Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
+# Set-Theme Paradox
+$env:POSH_GIT_ENABLED = $true
+oh-my-posh init pwsh --config "$HOME\Documents\PowerShell\themes\paradox-custom.omp.json" | Invoke-Expression
+# }
+
+$PSNativeCommandArgumentPassing = "Windows"
+$MaximumHistoryCount = 32767
 
 # Customize Powershell
 Update-FormatData -PrependPath $HOME\Documents\PowerShell\CommandInfo.format.ps1xml
@@ -43,12 +48,13 @@ New-Alias ipy ipython.exe
 New-Alias pdn "C:\Program Files\paint.net\PaintDotNet.exe"
 New-Alias vlc "C:\Program Files\VideoLAN\VLC\vlc.exe"
 New-Alias v video.pyw
-New-Alias ydl youtube-dl
+New-Alias ydl yt-dlp
 
 # Functions
 function l { Get-ChildItem @args | Format-Wide -AutoSize }
 function gitp { git --no-pager @args }
 function gs { git status @args }
+Remove-Item -Force alias:gl
 function gl { git log @args }
 function gd { git diff @args }
 function gdp { git --no-pager diff @args }
@@ -74,10 +80,27 @@ function wless($c) {
     }
 }
 function wedit($c) { code (whichp $c) }
+function wcode($c) { code (whichp $c) }
+function wsubl($c) { subl (whichp $c) }
 function wcd($c) { Set-Location (Split-Path (whichp $c)) }
 New-Alias whichcd wcd
-function wdo($do, $c) { &$do (whichp $c) @args }
+function wdo($do, $c) {
+    if ($MyInvocation.ExpectingInput) {
+        $input | &$do (whichp $c) @args
+    } else {
+        &$do (whichp $c) @args
+    }
+}
 New-Alias whichdo wdo
+function wpy($c) {
+    if ($MyInvocation.ExpectingInput) {
+        $input | py (whichp $c) @args
+    } else {
+        py (whichp $c) @args
+    }
+}
+New-Alias wpyw whichpyw.bat
+
 function up { Set-Location .. }
 function upup { Set-Location ..\.. }
 New-Alias .. up
@@ -90,10 +113,8 @@ function mklink { cmd /c mklink @args }
 function chromei { chrome --incognito @args }
 New-Alias ichrome chromei
 function mdless { mdcat -p @args }
-function Get-Property($prop, [Parameter(ValueFromPipeline)] $obj) {
-    Process {
-        $obj | Select-Object -ExpandProperty $prop
-    }
+function Get-Property($prop) {
+    $input | Select-Object -ExpandProperty $prop
 }
 New-Alias p Get-Property
 
@@ -109,7 +130,7 @@ function _cdvar_complete($commandName, $parameterName, $wordToComplete) {
             if (!$?) {
                 $var = Get-Item Env:$v
             }
-            if ($var) {
+            if ($var -and $var.Value -is [string]) {
                 Get-ChildItem -Directory "$($var.Value)\$p*" |
                     ForEach-Object { if ($_ -match " ") { "'$_\'" } else { "$_\" } }
             }
@@ -194,14 +215,15 @@ Set-PSReadlineKeyHandler -Chord Ctrl+\ -Function Redo
 Set-PSReadlineKeyHandler -Chord Alt+F4 -Function ViExit
 
 # Path shortcuts
+$C = "$HOME\Documents\coding"
 $D = "$HOME\Documents"
 $DL = "$HOME\Downloads"
 $GH = "$HOME\Documents\git"
 $H = "$HOME"
 $M = "$HOME\Music"
 $P = "$HOME\Documents\Python"
-$PP = "$HOME\Documents\Python\PythonProjects"
 $PB = "$HOME\Documents\Python\bin"
 $PC = "$HOME\Pictures"
+$PP = "$HOME\Documents\Python\PythonProjects"
 $PSP = "$HOME\AppData\Local\Programs\Python\Python39\Lib\site-packages"
 $V = "$HOME\Videos"
