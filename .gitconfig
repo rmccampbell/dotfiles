@@ -26,6 +26,7 @@
 	co = checkout
 	lg = log --oneline --graph
 	ls = ls-files
+	rv = remote -v
 	unstash = stash pop
 	amend = commit --amend --no-edit
 	amenda = commit --amend --all --no-edit
