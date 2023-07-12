@@ -4,7 +4,7 @@ ichrome="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --incognit
 chromei="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --incognito $*
 vlc="C:\Program Files\VideoLAN\VLC\vlc.exe" $*
 v="C:\Users\Ryan\Documents\Python\bin\video.pyw" $*
-ydl=youtube-dl $*
+ydl=yt-dlp $*
 
 ipy=ipython.exe $*
 py38=py -3.8 $*
@@ -16,6 +16,7 @@ l=ls -CF $*
 
 gitp=git --no-pager $*
 gs=git status $*
+gl=git log $*
 gd=git diff $*
 gds=git diff --cached $*
 gdw=git diff --word-diff-regex=. $*
