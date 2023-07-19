@@ -1,16 +1,33 @@
 $include /etc/inputrc
 
-# arrow up
+# Arrow up
 "\e[A": history-search-backward
-# arrow down
+# Arrow down
 "\e[B": history-search-forward
 
-# cycle through completions
+# Cycle through completions
+# Shift+Tab
 "\e[Z": menu-complete
-#"\C-i": menu-complete
+#"\t": menu-complete
 #"\e[Z": menu-complete-backward
 
 #set completion-ignore-case on
 
-# don't modify history lines
+# Don't modify history lines
 set revert-all-at-newline on
+
+$if clink
+
+# Ctrl+Tab
+"\e[27;5;9~": menu-complete-backward
+# Ctrl+Shift+Tab
+"\e[27;6;9~": menu-complete-backward
+
+"\t": clink-select-complete
+
+"\C-x\C-x": cua-cut
+"\M-w": copy-region-as-kill
+
+"\C-x\C-r": clink-reload
+
+$endif
