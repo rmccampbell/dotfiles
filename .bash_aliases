@@ -2,6 +2,7 @@
 
 alias sudo='sudo '
 
+alias sl=ls
 alias ll='ls -AlF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -21,6 +22,7 @@ alias cless='LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s" 
 alias pless='LESSOPEN="| pygmentize -g %s" less'
 alias lless='LESSOPEN="| ls -alF --color %s" less'
 
+alias rrc='. ~/.bashrc'
 alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
@@ -32,6 +34,7 @@ alias upup='cd ../..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias -- -='cd -'
 alias cls='clear'
 ldiff () { diff --color=always "$@" | less; }
@@ -48,6 +51,7 @@ alias ipy='ipython3'
 
 alias gitp='git --no-pager'
 alias gs='git status'
+alias gl='git log'
 alias gd='git diff'
 alias gds='git diff --cached'
 alias gdw='git diff --word-diff-regex=.'
@@ -317,3 +321,8 @@ headers() {
         echo "$line"
     done
 }
+
+function from_where() (
+    shopt -s extdebug
+    declare -F "$1"
+)
