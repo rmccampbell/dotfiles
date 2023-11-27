@@ -1,27 +1,25 @@
-# Chocolatey profile
+# Modules
+if (Get-Module posh-git) { Import-Module posh-git }
+if (Get-Module posh-git) { Import-Module posh-cargo }
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
+if (Test-Path $ChocolateyProfile) { Import-Module "$ChocolateyProfile" }
+$posh_vcpkg = "C:\vcpkg\scripts\posh-vcpkg"
+if (Test-Path $posh_vcpkg) { Import-Module $posh_vcpkg }
+
+if ($env:WT_SESSION -or $env:TERM_PROGRAM -eq "vscode") {
+    $env:POSH_GIT_ENABLED = $true
+    oh-my-posh init pwsh --config "$HOME\Documents\PowerShell\themes\paradox-custom.omp.json" | Invoke-Expression
+    # Import-Module oh-my-posh
+    # Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
+    # Set-Theme Paradox
 }
-
-Import-Module posh-git
-Import-Module posh-cargo
-Import-Module 'C:\vcpkg\scripts\posh-vcpkg'
-
-# if ($env:WT_SESSION -or $env:TERM_PROGRAM -eq "vscode") {
-# Import-Module oh-my-posh
-# Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
-# Set-Theme Paradox
-$env:POSH_GIT_ENABLED = $true
-oh-my-posh init pwsh --config "$HOME\Documents\PowerShell\themes\paradox-custom.omp.json" | Invoke-Expression
-# }
-
-$PSNativeCommandArgumentPassing = "Windows"
-$MaximumHistoryCount = 32767
 
 # Customize Powershell
 Update-FormatData -PrependPath $HOME\Documents\PowerShell\CommandInfo.format.ps1xml
 # Update-FormatData -PrependPath $HOME\Documents\PowerShell\FileSystem.format.ps1xml
+
+$PSNativeCommandArgumentPassing = "Windows"
+$MaximumHistoryCount = 32767
 
 if ($PSVersionTable.PSEdition -eq "Desktop") {
     # https://stackoverflow.com/questions/40098771/changing-powershells-default-output-encoding-to-utf-8
@@ -117,6 +115,8 @@ function Get-Property($prop) {
     $input | Select-Object -ExpandProperty $prop
 }
 New-Alias p Get-Property
+function Get-Length { @($input).Length }
+New-Alias len Get-Length
 
 function _cdvar_complete($commandName, $parameterName, $wordToComplete) {
     $w = $wordToComplete
@@ -172,12 +172,22 @@ function Less-Help($c) {
     }
 }
 New-Alias lh Less-Help
+
 function jql {
     if ($MyInvocation.ExpectingInput) {
         $input | jq -C @args | less -R
     } else {
         jq -C @args | less -R
     }
+}
+
+# function Refresh-Env {
+#     $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+#     [System.Environment]::GetEnvironmentVariable("Path", "User")
+# }
+
+function sudo() {
+    Start-Process pwsh.exe -Verb RunAs -Args "-NoExit", "-Command", ($args -join " ")
 }
 
 $_complete_cmd = { param($commandName, $parameterName, $wordToComplete) Get-Command $wordToComplete* }
