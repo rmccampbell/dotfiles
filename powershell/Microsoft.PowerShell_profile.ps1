@@ -1,13 +1,18 @@
 # Modules
-if (Get-Module posh-git) { Import-Module posh-git }
-if (Get-Module posh-git) { Import-Module posh-cargo }
+# echo "* Loading posh-git"
+Import-Module posh-git -ErrorAction Ignore
+# echo "* Loading posh-cargo"
+Import-Module posh-cargo -ErrorAction Ignore
+# echo "* Loading chocolatey"
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path $ChocolateyProfile) { Import-Module "$ChocolateyProfile" }
+# echo "* Loading vcpkg"
 $posh_vcpkg = "C:\vcpkg\scripts\posh-vcpkg"
 if (Test-Path $posh_vcpkg) { Import-Module $posh_vcpkg }
 
 if ($env:WT_SESSION -or $env:TERM_PROGRAM -eq "vscode") {
     $env:POSH_GIT_ENABLED = $true
+    # echo "* Loading oh-my-posh"
     oh-my-posh init pwsh --config "$HOME\Documents\PowerShell\themes\paradox-custom.omp.json" | Invoke-Expression
     # Import-Module oh-my-posh
     # Agnoster Paradox Operator PowerlinePlus Sorin Honukai Powerlevel9k
@@ -26,6 +31,10 @@ if ($PSVersionTable.PSEdition -eq "Desktop") {
     $PSDefaultParameterValues["*:Encoding"] = "utf8"
 }
 
+if ($PSVersionTable.PSVersion -ge '7.4' -and (Test-Path $PSScriptRoot\tabexpansion_polyfill.ps1)) {
+    . $PSScriptRoot\tabexpansion_polyfill.ps1
+}
+
 # Aliases
 New-Alias ll Get-ChildItem
 New-Alias lsd Get-Item
@@ -39,6 +48,7 @@ Remove-Item -Force alias:diff
 New-Alias time Measure-Command
 New-Alias dirname Split-Path
 function basename { Split-Path -Leaf @args }
+function abspath($p) { (Resolve-Path $p).Path }
 New-Alias sel Select-Object
 New-Alias jobs Get-Job
 New-Alias psh powershell.exe
@@ -81,7 +91,6 @@ function wedit($c) { code (whichp $c) }
 function wcode($c) { code (whichp $c) }
 function wsubl($c) { subl (whichp $c) }
 function wcd($c) { Set-Location (Split-Path (whichp $c)) }
-New-Alias whichcd wcd
 function wdo($do, $c) {
     if ($MyInvocation.ExpectingInput) {
         $input | &$do (whichp $c) @args
@@ -89,7 +98,6 @@ function wdo($do, $c) {
         &$do (whichp $c) @args
     }
 }
-New-Alias whichdo wdo
 function wpy($c) {
     if ($MyInvocation.ExpectingInput) {
         $input | py (whichp $c) @args
@@ -97,7 +105,13 @@ function wpy($c) {
         py (whichp $c) @args
     }
 }
-New-Alias wpyw whichpyw.bat
+function wpyw($c) {
+    pyw (whichp $c) @args
+}
+New-Alias whichcd wcd
+New-Alias whichdo wdo
+New-Alias whichpy wpy
+New-Alias whichpyw wpyw
 
 function up { Set-Location .. }
 function upup { Set-Location ..\.. }
@@ -181,7 +195,7 @@ function jql {
     }
 }
 
-# function Refresh-Env {
+# function Refresh-Path {
 #     $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
 #     [System.Environment]::GetEnvironmentVariable("Path", "User")
 # }
@@ -199,6 +213,8 @@ Register-ArgumentCompleter -CommandName wedit -ParameterName c -ScriptBlock $_co
 Register-ArgumentCompleter -CommandName wcd -ParameterName c -ScriptBlock $_complete_cmd
 Register-ArgumentCompleter -CommandName wdo -ParameterName do -ScriptBlock $_complete_cmd
 Register-ArgumentCompleter -CommandName wdo -ParameterName c -ScriptBlock $_complete_cmd
+Register-ArgumentCompleter -CommandName wpy -ParameterName c -ScriptBlock $_complete_cmd
+Register-ArgumentCompleter -CommandName wpyw -ParameterName c -ScriptBlock $_complete_cmd
 Register-ArgumentCompleter -CommandName Less-Help -ParameterName c -ScriptBlock $_complete_cmd
 
 $_pycompleter = { param($wordToComplete, $commandAst, $cursorPosition) (pycompleter $wordToComplete).split() }
@@ -235,5 +251,5 @@ $P = "$HOME\Documents\Python"
 $PB = "$HOME\Documents\Python\bin"
 $PC = "$HOME\Pictures"
 $PP = "$HOME\Documents\Python\PythonProjects"
-$PSP = "$HOME\AppData\Local\Programs\Python\Python39\Lib\site-packages"
+$PSP = "$HOME\AppData\Local\Programs\Python\Python311\Lib\site-packages"
 $V = "$HOME\Videos"
