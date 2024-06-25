@@ -26,6 +26,7 @@ alias rrc='. ~/.bashrc'
 alias cats='tail -v -n +1'
 alias table="column -s $'\\t' -t -n"
 alias diffs='diff -s'
+alias diffq='diff -sq'
 alias c='cd'
 alias cdc='cd $PWD'
 alias cdl='cd -P'
@@ -68,10 +69,12 @@ alias wemacs='\emacs'
 alias tm='tmux new -A'
 
 p () {
-    if [ $# -eq 0 ]; then
+    if [[ "$#" -eq 0 ]]; then
         less
-    else
+    elif [[ -x "$1" ]]; then
         "$@" |& less
+    else
+        less "$@"
     fi
 }
 alias p='p '
@@ -192,13 +195,13 @@ rand () {
 }
 
 arand () {
-    if [ "$1" = "-n" ]; then
-        arand "${@:2}"; echo
-    elif [ "$1" = "-" ]; then
+    if [ "$1" = "-" ]; then
         base64 -w 0 /dev/urandom
-    else
-        local n=${1-100}
+    elif [ "$1" = "-n" ]; then
+        local n=${2-100}
         rand $(((n+1)*3/4)) | base64 -w 0 | head -c "$n"
+    else
+        arand -n "$@"; echo
     fi
 }
 
@@ -212,6 +215,10 @@ ediff() {
 }
 
 count () {
+    echo $#
+}
+
+countd () {
     ls "$@" 2>/dev/null | wc -l
 }
 
@@ -237,10 +244,11 @@ setbg () {
 
 hex () {
     if [ "$1" = "-n" ]; then
-        hex "${@:2}"; echo
-        return
+        hex "${@:2}" | tr -d '\n'
+        # hexdump -v -e '/1 "%02x"' "${@:2}"
+    else
+        xxd -p -c 0 "$@"
     fi
-    hexdump -v -e '/1 "%02x"' "$@"
 }
 
 nl () {
@@ -322,7 +330,13 @@ headers() {
     done
 }
 
-function from_where() (
+from_where() (
     shopt -s extdebug
     declare -F "$1"
 )
+
+repeat() {
+    for i in $(seq 1 ${1?}); do
+        "${@:2}"
+    done
+}
