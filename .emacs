@@ -19,7 +19,8 @@
 (setq-default tab-width 4)
 
 (show-paren-mode 1)
-(global-linum-mode 1)
+;; (global-linum-mode 1)
+(global-display-line-numbers-mode 1)
 (column-number-mode 1)
 (delete-selection-mode 1)
 (savehist-mode 1)
@@ -93,13 +94,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-archives
-   (quote
-    (("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages (quote (hlinum yascroll dtrt-indent undo-tree))))
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")))
+ '(package-selected-packages '(diff-hl hlinum yascroll dtrt-indent undo-tree)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(line-number ((t (:inherit (shadow default) :background "#333"))))
+ '(line-number-current-line ((t (:inherit line-number :background "#555"))))
  '(linum ((t (:background "#999" :foreground "#000")))))
