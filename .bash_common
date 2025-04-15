@@ -16,3 +16,7 @@ stty -ixon
 # source ~/.bash-git-prompt/gitprompt.sh
 
 # eval "$(oh-my-posh init bash --config ~/.poshthemes/paradox-custom.omp.json)"
+
+# if [[ -s "$HOME/.venvs/base/bin/activate" ]]; then
+#     . "$HOME/.venvs/base/bin/activate"
+# fi
