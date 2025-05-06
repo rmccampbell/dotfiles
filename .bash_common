@@ -3,19 +3,26 @@
 export VISUAL='emacs'
 export EDITOR="$VISUAL"
 
-shopt -s autocd cdspell cdable_vars dirspell \
-      extglob globstar lastpipe direxpand # failglob nocaseglob dotglob
+# HISTSIZE=10000
+# HISTFILESIZE=10000
+# shopt -s histappend
+
+shopt -s autocd cdable_vars cdspell direxpand dirspell lastpipe
+shopt -s extglob globstar # dotglob failglob nocaseglob nullglob
 GLOBIGNORE='.:..'
 # Setting GLOBIGNORE implicitly sets dotglob; unset
 shopt -u dotglob
 
 stty -ixon
 
+# export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/python"
+# export PYTHONSTARTUP="$HOME/python/startup.py"
+
+# eval "$(oh-my-posh init bash --config ~/.poshthemes/paradox-custom.omp.json)"
+
 # GIT_PROMPT_ONLY_IN_REPO=1
 # GIT_PROMPT_THEME=Custom
 # source ~/.bash-git-prompt/gitprompt.sh
-
-# eval "$(oh-my-posh init bash --config ~/.poshthemes/paradox-custom.omp.json)"
 
 # if [[ -s "$HOME/.venvs/base/bin/activate" ]]; then
 #     . "$HOME/.venvs/base/bin/activate"

@@ -1,23 +1,32 @@
 #-*- mode: sh -*-
 
-export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/python"
-export PYTHONSTARTUP="$HOME/python/startup.py"
-
 # export P4DIFF="git --no-pager diff --no-index --color"
 export P4DIFF="diff --color=always"
 
-export HEAD=/google/src/head/depot/google3
-export LOGS=/usr/local/google/tmp
+HEAD=/google/src/head/depot/google3
+CITC=/google/src/cloud/$USER
+CL=/google/src/files
+LOGS=/usr/local/google/tmp
 
 update_history() { history -a; }
-# set_workspace() { WS=$(p4 g4d 2>/dev/null); }
+
 set_workspace() {
-    export WS=${PWD/\/google3\/*/\/google3}
-    export DIR=${PWD##"$WS"?(/)}
-    export BLZBIN=$WS/blaze-bin
-    export BLZBINDIR=$BLZBIN/$DIR
-    export HEADDIR=$HEAD/$DIR
+    WS=${PWD/\/google3\/*/\/google3}
+    DEPOT=$(dirname "$WS")
+    DEP=$DEPOT
+    DIR=${PWD##"$WS"?(/)}
+    BASEDIR=${DIR##blaze-+([^/])?(/)}
+    SRCDIR=$WS/$BASEDIR
+    # JAVADIR=$WS/java/com/google/$BASEDIR
+    BLZBIN=$WS/blaze-bin
+    BLZBINDIR=$BLZBIN/$BASEDIR
+    BLZGEN=$WS/blaze-genfiles
+    BLZGENDIR=$BLZGEN/$BASEDIR
+    BLZTEST=$WS/blaze-testlogs
+    BLZTESTDIR=$BLZTEST/$BASEDIR
+    HEADDIR=$HEAD/$BASEDIR
 }
+
 precmd_functions+=(update_history set_workspace)
 
 alias emacs='emacs -nw'
@@ -26,11 +35,20 @@ alias wemacs='\emacs'
 alias pp='p4 pending'
 alias pd='p4 diff'
 alias pr='p4 reopen'
+alias g4p='p4 g4d'
 
 alias hs='hg status'
+alias hps='hg pstatus'
 alias hd='hg diff'
-alias ha='hg add'
+alias hdc='hg diff -c .'
+alias hds='hg diff --stat'
+alias hdcs='hg diff --stat -c .'
+alias ha='hg addremove'
 alias hx='hg xl'
+
+alias hgcl='hg exportedcl'
+alias cl='vcstool pending-change-number'
+alias scl='srcfs get_readonly'
 
 alias fu=fileutil
 alias fl='fileutil ls'
@@ -38,20 +56,77 @@ alias fls='fileutil ls'
 alias fll='fileutil ls -l'
 alias flsd='fileutil ls -d'
 alias flld='fileutil ls -ld'
+flh() { fileutil ls "$@" | head; }
+fllh() { fileutil ls -l "$@" | head; }
 
+alias gcst=gcertstatus
+alias gcertc='gcert && cd $PWD'
+
+alias tm='tmx2 new -A'
 alias tgcert='eval $(tmux show-environment -s); gcert'
 alias tgcertstatus='eval $(tmux show-environment -s); gcertstatus'
 
+alias gq='gqui --nopager -q'
+
 alias g3python=/google/data/ro/projects/g3python/g3python
 alias bluze=/google/bin/releases/blueprint-bluze/public/bluze 
-alias iwyu=/google/src/files/head/depot/google3/devtools/maintenance/include_what_you_use/iwyu.py
-alias buildfix=/google/data/ro/teams/ads-integrity/buildfix
 alias rmpm='rabbit --verifiable mpm -c opt --mpm_build_arg="--label=live"'
 alias aclcheck=/google/data/ro/projects/ganpati/aclcheck
 alias placercfg=/google/data/ro/teams/placer/mpms/placercfg/live/placercfg
 alias ganpaticfg=/google/bin/releases/ganpaticfg/public/ganpaticfg
 alias pastebin=/google/src/head/depot/eng/tools/pastebin
-alias guitar=/google/data/ro/projects/testing/integrate/guitar
 alias plxutil=/google/data/ro/teams/plx/plxutil
 alias get_mint=/google/data/ro/projects/gaiamint/bin/get_mint
-alias p1ui='boq run --prod_data --node=//java/com/google/privacy/one/ui/productpage/ui'
+alias analog=/google/bin/releases/borg-logs-ui/analog-cli/analog
+alias rpcstudio=/google/bin/releases/frameworks-rpc-studio/prod/run.sh
+alias findcells=/google/data/ro/teams/org-tools-sre/findcells
+alias bisect=/google/data/ro/teams/tetralight/bin/bisect
+alias hmd_cli=/google/bin/releases/horizontal-monitoring-team/hmd_cli/main
+alias start_envelope=/usr/envelope/start_envelope
+alias vcstool=/google/data/ro/teams/fig/bin/vcstool
+alias xrefs=/google/bin/releases/grok/tools/xrefs
+alias prodspec=/google/data/ro/teams/prodspec/prodspec
+alias termassist=/google/bin/releases/cider/termassist/termassist
+alias ??=/google/bin/releases/cider/termassist/termassist
+
+complete -F _blaze::complete_test_target_wrapper -o nospace benchy
+
+show_proto() {
+    if [ "$#" -ge 2 ]; then
+        show_proto "${1?}" <<< "${2?}"
+    else
+        gqui --nopager -q from textproto:- proto "${1?}"
+    fi
+}
+
+proto_encode() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: proto_encode [-b|-h] PROTO_TYPE [TEXT_PROTO]" >&2
+        return 1
+    elif [ "$1" = "-h" ]; then
+        proto_encode "${@:2}" | xxd -p -c 0
+    elif [ "$1" = "-b" ]; then
+        proto_encode "${@:2}" | base64 -w 0; echo
+    elif [ "$#" -ge 2 ]; then
+        proto_encode "${1?}" <<< "${2?}"
+    else
+        gqui -q from textproto:- --outfile=rawproto:- proto "${1?}"
+    fi
+}
+
+proto_decode() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: proto_decode [-b|-h] PROTO_TYPE [B64_OR_HEX]" >&2
+        return 1
+    elif [ "$1" = "-h" ]; then
+        if [ "$#" -ge 3 ]; then xxd -r -p <<< "${3?}"; else xxd -r -p; fi \
+            | proto_decode "${2?}"
+    elif [ "$1" = "-b" ]; then
+        if [ "$#" -ge 3 ]; then base64 -d <<< "${3?}"; else base64 -d; fi \
+            | proto_decode "${2?}"
+    elif [ "$#" -ge 2 ]; then
+        base64 -d <<< "${2?}" | proto_decode "${1?}"
+    else
+        gqui --nopager -q from rawproto:- proto "${1?}"
+    fi
+}
