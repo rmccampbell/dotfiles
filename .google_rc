@@ -1,5 +1,7 @@
 #-*- mode: sh -*-
 
+export HOST_ALIAS=$(hostname | grep -Eo '^[^.]+(\.[^.]+)?')
+
 # export P4DIFF="git --no-pager diff --no-index --color"
 export P4DIFF="diff --color=always"
 
