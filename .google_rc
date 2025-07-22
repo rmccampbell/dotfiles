@@ -1,14 +1,17 @@
 #-*- mode: sh -*-
 
-export HOST_ALIAS=$(hostname | grep -Eo '^[^.]+(\.[^.]+)?')
+export HOST_ALIAS="${HOST_ALIAS:-$(hostname | grep -Eo '^[^.]+(\.[^.]+)?')}"
 
 # export P4DIFF="git --no-pager diff --no-index --color"
 export P4DIFF="diff --color=always"
 
-HEAD=/google/src/head/depot/google3
+HEADDEPOT=/google/src/head/depot
+HEAD=$HEADDEPOT/google3
 CITC=/google/src/cloud/$USER
 CL=/google/src/files
 LOGS=/usr/local/google/tmp
+
+PSS_PRODUCT_ID=70628223
 
 update_history() { history -a; }
 
@@ -17,9 +20,9 @@ set_workspace() {
     DEPOT=$(dirname "$WS")
     DEP=$DEPOT
     DIR=${PWD##"$WS"?(/)}
+    G3DIR=google3/$DIR
     BASEDIR=${DIR##blaze-+([^/])?(/)}
     SRCDIR=$WS/$BASEDIR
-    # JAVADIR=$WS/java/com/google/$BASEDIR
     BLZBIN=$WS/blaze-bin
     BLZBINDIR=$BLZBIN/$BASEDIR
     BLZGEN=$WS/blaze-genfiles
@@ -39,14 +42,16 @@ alias pd='p4 diff'
 alias pr='p4 reopen'
 alias g4p='p4 g4d'
 
+alias hgp='hg --pager=no'
 alias hs='hg status'
 alias hps='hg pstatus'
 alias hd='hg diff'
 alias hdc='hg diff -c .'
-alias hds='hg diff --stat'
-alias hdcs='hg diff --stat -c .'
+alias hds='hg diff --stat --pager=no'
+alias hdcs='hg diff --stat -c . --pager=no'
 alias ha='hg addremove'
-alias hx='hg xl'
+alias hx='hg xl --pager=no'
+alias hxp='hg xl --pager=yes'
 
 alias hgcl='hg exportedcl'
 alias cl='vcstool pending-change-number'
@@ -56,15 +61,27 @@ alias fu=fileutil
 alias fl='fileutil ls'
 alias fls='fileutil ls'
 alias fll='fileutil ls -l'
+alias fld='fileutil ls -d'
 alias flsd='fileutil ls -d'
 alias flld='fileutil ls -ld'
-flh() { fileutil ls "$@" | head; }
-fllh() { fileutil ls -l "$@" | head; }
+flh() { fileutil ls "$@" |& head; }
+fldh() { fileutil ls -d "$@" |& head; }
+fllh() { fileutil ls -l "$@" |& head; }
+flldh() { fileutil ls -ld "$@" |& head; }
+flt() { fileutil ls "$@" |& tail; }
+fldt() { fileutil ls -d "$@" |& tail; }
+fllt() { fileutil ls -l "$@" |& tail; }
+flldt() { fileutil ls -ld "$@" |& tail; }
+alias fcat='fileutil cat'
+fhead() { fileutil cat "$@" | head; }
+ftail() { fileutil cat "$@" | head; }
+fless() { fileutil cat "$@" | less; }
 
 alias gcst=gcertstatus
 alias gcertc='gcert && cd $PWD'
 
-alias tm='tmx2 new -A'
+unalias tm &> /dev/null
+tm() { [[ "$VIRTUAL_ENV" ]] && deactivate; tmx2 new -A; }
 alias tgcert='eval $(tmux show-environment -s); gcert'
 alias tgcertstatus='eval $(tmux show-environment -s); gcertstatus'
 

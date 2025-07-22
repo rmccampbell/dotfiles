@@ -1,0 +1,13 @@
+[alias]
+c = commit
+cm = commit -m
+cam = commit -A -m
+ch = checkout
+upl = upload
+xl = ll -r smart --pager=no
+
+[pager]
+ignore = status
+
+[google]
+upload.default-rev = chain
