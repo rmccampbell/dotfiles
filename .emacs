@@ -28,10 +28,14 @@
 (unless (display-graphic-p)
   (menu-bar-mode -1))
 
-(require 'dired-x)
+;; Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=45824, which
+;; causes Emacs not to run screen.el when TERM=screen.xterm-256color.
+(add-to-list 'term-file-aliases '("screen.xterm-256color" . "screen-256color"))
+;; Enable Emacs to write to the system clipboard through OSC 52 codes.
+(setq xterm-screen-extra-capabilities '(modifyOtherKeys setSelection))
+(setq xterm-tmux-extra-capabilities '(modifyOtherKeys setSelection))
 
-;; (set-face-background 'linum "#999")
-;; (set-face-foreground 'linum "#000")
+(require 'dired-x)
 
 ;; Bindings
 (defmacro bind-args (fun &rest args)
@@ -71,7 +75,7 @@
 
 (defun paste-from-clipboard ()
   (interactive)
-  (insert (shell-command-to-string "xsel -o -b")))
+  (insert (shell-command-to-string "xsel -o -b 2>/dev/null")))
 
 (global-set-key (kbd "C-M-c") 'copy-to-clipboard)
 (global-set-key (kbd "C-M-v") 'paste-from-clipboard)
@@ -82,11 +86,15 @@
 ;; (global-set-key (kbd "C-\\") 'undo-tree-redo)
 ;; (setq undo-tree-auto-save-history nil)
 ;; (dtrt-indent-global-mode 1)
-;; (require 'cl)                           ; required for yascroll
+;; ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
-;; (hlinum-activate)
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)
+;; ;; (hlinum-activate)
+;; (global-diff-hl-mode)
+;; (diff-hl-margin-mode)
+;; ;; (add-hook 'python-mode-hook 'jedi:setup)
+;; ;; (setq jedi:complete-on-dot t)
+;; ;; (global-set-key (kbd "M-;") 'smart-comment)
+;; (whole-line-or-region-global-mode 1)
 
 ;; Customize
 (custom-set-variables
@@ -97,7 +105,8 @@
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
- '(package-selected-packages '(diff-hl hlinum yascroll dtrt-indent undo-tree)))
+ '(package-selected-packages
+   '(diff-hl hlinum yascroll dtrt-indent undo-tree smart-comment whole-line-or-region)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
