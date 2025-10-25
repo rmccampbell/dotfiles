@@ -88,13 +88,13 @@
 ;; (dtrt-indent-global-mode 1)
 ;; ;; (require 'cl)                           ; required for yascroll
 ;; (global-yascroll-bar-mode 1)
+;; (whole-line-or-region-global-mode 1)
+;; ;; (global-set-key (kbd "M-;") 'smart-comment)
 ;; ;; (hlinum-activate)
-;; (global-diff-hl-mode)
-;; (diff-hl-margin-mode)
+;; ;; (global-diff-hl-mode)
+;; ;; (diff-hl-margin-mode)
 ;; ;; (add-hook 'python-mode-hook 'jedi:setup)
 ;; ;; (setq jedi:complete-on-dot t)
-;; ;; (global-set-key (kbd "M-;") 'smart-comment)
-;; (whole-line-or-region-global-mode 1)
 
 ;; Customize
 (custom-set-variables
@@ -106,12 +106,13 @@
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(diff-hl hlinum yascroll dtrt-indent undo-tree smart-comment whole-line-or-region)))
+   '(diff-hl yascroll dtrt-indent undo-tree smart-comment whole-line-or-region)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(line-number ((t (:inherit (shadow default) :background "#333"))))
- '(line-number-current-line ((t (:inherit line-number :background "#555"))))
- '(linum ((t (:background "#999" :foreground "#000")))))
+ ;; '(line-number ((t (:inherit (shadow default) :background "#181818"))))
+ ;; '(line-number-current-line ((t (:inherit line-number :background "#303030"))))
+ ;; '(linum ((t (:background "#999" :foreground "#000"))))
+)
