@@ -114,5 +114,4 @@
  ;; If there is more than one, they won't work right.
  ;; '(line-number ((t (:inherit (shadow default) :background "#181818"))))
  ;; '(line-number-current-line ((t (:inherit line-number :background "#303030"))))
- ;; '(linum ((t (:background "#999" :foreground "#000"))))
 )
